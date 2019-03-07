@@ -1,0 +1,46 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Poppins;
+	background-color: #79b156;
+}
+h1 {
+    font-size: 4vw;
+    text-align: center;
+    margin: 3vw 0;
+}
+h2 {
+    font-size: 2.3vw;
+}
+.ingredientes {
+	padding: 1vw 4vw;
+}
+.cabecera {
+	font-size: 2.8vw;
+	text-align: center;
+	margin-bottom: 2.4vw;
+	padding-top: 1.6vw;
+}
+h3 {
+	text-align: center;
+	font-size: 1.8vw;
+	padding: 0 1vw 1.6vw 1vw;
+}
+#cajaIngredientes {
+	width: 80vw;
+    margin: 2vw 2vw;
+    background-color: #d8ff8a;
+    border-radius: 3.7vw;
+}
+#cajaDescripcion {
+	width: 80vw;
+    margin: 0 auto;
+	background-color: #a8dc6e;
+    border-radius: 2vw;
+	height: 50vh;
+}

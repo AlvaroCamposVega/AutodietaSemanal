@@ -1,0 +1,62 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Poppins;
+	background-color: #79b156;
+}
+h1 {
+	text-align: center;
+	font-size: 2.2vw;
+	color: #007eff;
+}
+table {
+	text-align: center;
+	width: 98%;
+	margin: 0 auto;
+	margin-top: 4vw;
+	font-size: 1.4vw;
+	background-color: #deffcc;
+	border-collapse: collapse;
+}
+thead{
+	background-color: #95ff52;
+}
+td:hover {
+	background-color: #d0dacb;
+}
+.stripped {
+	background-color: #95ff52;
+}
+.stripped td:hover {
+	background-color: #78ce42;
+}
+th {
+	font-size: 1.9vw;
+	padding: 1vw 0;
+}
+td {
+	padding: 0.1vw;
+}
+.enlaceTd{
+	text-decoration: none;
+	color: black;
+}
+h2 {
+	text-align: right;
+	font-size: 1.5vw;
+	padding: 1.4vw 4vw 0 0;
+}
+h2 a{
+	color: #005dff;
+}
+h2 a:visited {
+	color: #005dff;
+}
+h2 a:hover{
+	color: #0f4ebc;
+}
