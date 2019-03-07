@@ -8,4 +8,5 @@ Las condiciones que se deben cumplir en la aleatorización de una dieta son las 
 ## Login
 La ventana de login es la que se muestra al entrar en la raíz de la aplicación. Dispone de dos campos para iniciar sesión con usuario ya creado, si no dispones de uno, puedes hacer click en el enlace de registro para crear una cuenta nueva.
 Si la autenticación falla, se mostrará un mensaje de error y se volverán a pedir los datos.
+
 ![Login](/Capturas/login.PNG)
