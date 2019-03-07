@@ -24,8 +24,7 @@
 	<%
 		session.removeAttribute("adLog");
 	
-		if (request.getParameter("usuario") == null || request.getParameter("contrasena") == null ||
-		        session.getAttribute("adLog") == null) { // Si se intenta acceder por URL
+		if (request.getParameter("usuario") == null || request.getParameter("contrasena") == null) { // Si se intenta acceder por URL
 		    	
 			response.sendRedirect("../"); // Lo mandamos a la pantalla de inicio
 		    	
