@@ -7,8 +7,7 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="biblio.BiblioMatematicas" %>
-<%@ page import="dieta.*" %>
+<%@ page import="dieta.Dieta" %>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
