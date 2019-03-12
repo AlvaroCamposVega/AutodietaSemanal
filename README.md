@@ -1,0 +1,2 @@
+#Entorno de Desarrollo de Autodieta Semanal
+Este es el entorno de desarrollo de Autodieta Semanal en el que se irán desarrollando y probando las nuevas actualizaciones para el proyecto. Poco a poco estas actualizaciones se irán implementando en la rama principal cuando estas sean estables.
