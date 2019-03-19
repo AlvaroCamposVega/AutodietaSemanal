@@ -13,3 +13,4 @@ Este es el entorno de desarrollo de Autodieta Semanal en el que se irán desarro
 * Mejorar la presentación.
 * Modularizar todo lo posible el código con el uso de funciones y clases para que este sea mucho más fácil de mantener.
 * Crear los CRUDs para las recetas, los roles y dar de alta a nuevos usuarios administradores.
+* El usuario podrá obtener su dieta en formato Excel, PDF o CSV.
