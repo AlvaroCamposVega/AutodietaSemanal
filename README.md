@@ -50,3 +50,8 @@ La ventana de modificar usuario permite modificar cualquier dato del usuario sel
 Para eliminar a un usuario no se envía a otra ventana, simplemente se pregunta para confirmar el borrado de este.
 
 ![Eliminar usuario](/Capturas/eliminar.PNG)
+
+## Enlaces
+* [Entorno de desarrollo](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo)
+* [Versión 1.1](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v1.1)
+* [Versión 2.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v2.0)
