@@ -53,5 +53,5 @@ Para eliminar a un usuario no se envía a otra ventana, simplemente se pregunta 
 
 ## Enlaces
 * [Entorno de desarrollo](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo)
-* [Versión 1.1](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v1.1)
-* [Versión 2.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v2.0)
+* [Versión 1.1.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v1.1.0)
+* [Versión 2.0.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v2.0.0)
