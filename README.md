@@ -1,4 +1,5 @@
 # *Versión 2.0.0*
+* Reestructurar el proyecto.
 * Cambiar algunas tablas de la base de datos.
 * Mejorar la presentación.
 * Modularizar todo lo posible el código con el uso de funciones y clases para que este sea mucho más fácil de mantener.
