@@ -8,5 +8,4 @@
 * El usuario podrá obtener su dieta en formato Excel, PDF o CSV.
 
 # Enlaces
-* [Versión 1.1.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v1.1.0)
 * [Entorno de desarrollo](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo)
