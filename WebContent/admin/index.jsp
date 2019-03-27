@@ -58,7 +58,7 @@
 			Statement s = conexion.createStatement();
 			ResultSet listadoPrivilegios = s.executeQuery("SELECT * FROM Privilegio");
 			
-			// FORMULARIO AÑADIR USUARIO
+			// FORMULARIO AÑADIR USUARIO ---------------------------
 	    	out.print("<div id=\"formAnyadir\">");
 	    	out.print("<form action=\"insertar/\" method=\"POST\">");
 	    	out.print("<input id=\"inputNombre\" name=\"nombre\" type=\"text\" placeholder=\"Nombre\" maxlength=\"20\" required>");
@@ -90,7 +90,8 @@
 	    	while (listadoPrivilegios.next()) { // Generamos las etiquetas option con los privilegios
 	    	    
 	    	    String idPrivilegio = listadoPrivilegios.getString("Id");
-	    	    String privilegio = listadoPrivilegios.getString("Privilegio");
+	    	    String privilegio = listadoPrivilegios.getString("Privilegio").substring(0, 1).toUpperCase() +
+	    	            listadoPrivilegios.getString("Privilegio").substring(1);
 	    	    
 	    	    if (privilegio.equals("usuario")) {
 	    	        
@@ -107,18 +108,9 @@
 	    	out.print("</form>");
 	    	out.print("</div>");
 			
-	    	// GENERACIÓN TABLA DE USUARIOS
-			ResultSet listadoPrivilegioUsuario = s.executeQuery("SELECT Id FROM privilegio WHERE Privilegio = 'usuario'");
-			
-			String idPrivilegio = "";
-			
-			while (listadoPrivilegioUsuario.next()) {
-			    
-			    idPrivilegio = listadoPrivilegioUsuario.getString("Id");
-			}
-			
-			ResultSet listadoUsuarios = s.executeQuery("SELECT Id, Nombre, ExpiraDieta FROM usuario WHERE IdPrivilegio = "
-				+ idPrivilegio);
+	    	// GENERACIÓN TABLA DE USUARIOS ---------------------------
+			Statement s1 = conexion.createStatement();
+			ResultSet listadoPrivilegioUsuario = s1.executeQuery("SELECT Id, Privilegio FROM privilegio WHERE Privilegio != 'admin'");
 			
 			out.print("<table>");
 			out.print("<thead>");
@@ -128,26 +120,35 @@
 			
 			boolean stripped = false;
 			
-			while (listadoUsuarios.next()) {
+			while (listadoPrivilegioUsuario.next()) {
 			    
-			    if (stripped) { // Decoración en zebra de la tabla
-			        
-			        out.print("<tr" + " class=\"stripped\"" + ">");
-			        stripped = false;
-			        
-			    } else {
-			        
-			        out.print("<tr>");
-			        stripped = true;
-			    }
-			    
-			    out.print("<td>" + listadoUsuarios.getString("Nombre") + "</td>");
-			    out.print("<td>" + listadoUsuarios.getString("ExpiraDieta") + "</td>");
-			    out.print("<td>Usuario</td>");
-				out.println("<td><a href='modificar/?id=" + listadoUsuarios.getString("Id") +
-				        "'><button type='submit' class='mod'>" + "Modificar</button></td></a>");
-				out.println("<td><button onclick=\"eliminar(this);\" type='button' class='eli'>Eliminar</button></td>");
-			    out.print("</tr>");
+			    String idPrivilegio = listadoPrivilegioUsuario.getString("Id");
+			    String privilegio = listadoPrivilegioUsuario.getString("Privilegio").substring(0, 1).toUpperCase() +
+	    	            listadoPrivilegioUsuario.getString("Privilegio").substring(1);
+			    ResultSet listadoUsuarios = s.executeQuery("SELECT Id, Nombre, ExpiraDieta FROM usuario WHERE IdPrivilegio = "
+						+ idPrivilegio);
+				
+				while (listadoUsuarios.next()) {
+				    
+				    if (stripped) { // Decoración en zebra de la tabla
+				        
+				        out.print("<tr" + " class=\"stripped\"" + ">");
+				        stripped = false;
+				        
+				    } else {
+				        
+				        out.print("<tr>");
+				        stripped = true;
+				    }
+				    
+				    out.print("<td>" + listadoUsuarios.getString("Nombre") + "</td>");
+				    out.print("<td>" + listadoUsuarios.getString("ExpiraDieta") + "</td>");
+				    out.print("<td>" + privilegio + "</td>");
+					out.println("<td><a href='modificar/?id=" + listadoUsuarios.getString("Id") +
+					        "'><button type='submit' class='mod'>" + "Modificar</button></td></a>");
+					out.println("<td><button onclick=\"eliminar(this);\" type='button' class='eli'>Eliminar</button></td>");
+				    out.print("</tr>");
+				}
 			}
 			
 			out.print("</tbody>");

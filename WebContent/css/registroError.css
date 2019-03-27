@@ -4,73 +4,140 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-    background-color: #79b156;
+    background-color: #fbfbfb;
 }
-#wrapper{
+/* BARRA DE NAVEGACIÓN */
+body nav {
+    height: 8vh;
+    font-size: 1.4vw;
+    position: sticky;
+    top: 0;
+    background-color: #4dbd33; /* #15c1f5 */
+    border-bottom: 0.15vw solid #297900; /* #1082a5 */
+}
+  /* Enlaces */
+body nav ul {
+    margin-left: 2.4vw;
+    list-style: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+body nav ul li {
+    display: inline;
+    margin-right: 1.4vw;
+}
+    /* Enlace Normal */
+body nav ul li a {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:link {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:visited {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:hover {
+    text-decoration: underline;
+}
+    /* Enlace Activo */
+body nav ul li a#activo {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:link {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:visited {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:hover {
+    text-decoration: none;
+    color: #fdfdfd; /* #f4f4f4 */
+}
+#s1{
     width: 100%;
 }
-#wrapper h1{
+body section#s1 h1.tituloCentrado {
+    padding: 2.4vw 0 1vw 0;
     text-align: center;
-    font-size: 5vw;
-    padding: 5vw 0 1.9vw 0;
-    color: #222;
+    font-size: 4vw;
+    color: #262626;
 }
-#wrapper h2{
+#s1 h2{
 	font-weight: normal;
     text-align: center;
     margin: 4vw 0;
     font-size: 1.5vw;
     color: #222;
 }
-#wrapper h3{
+#s1 h3{
 	color: #f00;
 	font-weight: normal;
 	font-size: 1.3vw;
 	margin-bottom: 1vw;
 }
-#wrapper form{
+#s1 form{
     text-align: center;
 }
-#wrapper input{
+#s1 input{
     font-size: 1.4vw;
     width: 18vw;
     padding: 0.4vw 0 0.4vw 1vw;
     margin-bottom: 1.4vw;
     border-radius: 0.3vw;
-    border: none;
+    border: 1px solid #7d7d7d;
     background-color: #f5f5f5;
 }
-#wrapper #usuario {
-	border: 0.15vw solid #f00;
+#s1 #usuario {
+	border: 2px solid #f00;
 }
-#wrapper button{
+#s1 button{
     margin-top: 1.8vw;
     font-size: 1.8vw;
     width: 6.8vw;
     border: none;
     border-radius: 0.3vw;
-    background-color: #f5f5f5;
+    background-color: #4dbd33;
     color: #1e1e1e;
 }
-#wrapper button:hover{
-    background-color: #d6d6d6;
+#s1 button:hover{
+    background-color: #46ad2e;
 }
-#wrapper a{
+#s1 a{
 	color: #005dff;
 }
-#wrapper a:visited {
+#s1 a:visited {
 	color: #005dff;
 }
-#wrapper a:hover{
+#s1 a:hover{
 	color: #0f4ebc;
+}
+/* FOOTER */
+body footer {
+    height: 18vh;
+    width: 100%;
+    top: 82vh;
+    background-color: #3d902a; /* #11657d azul | #4e4e4e gris */
+    color: #f4f4f4;
+    position: absolute;
+}
+body footer div {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 @media only screen and (max-width: 450px){
 
-    #wrapper h1{
+    #s1 h1{
         font-size: 16vw;
         padding: 20vw 0;
     }
-    #wrapper input{
+    #s1 input{
         font-size: 8vw;
         width: 64vw;
         padding: 1vw 0 1vw 4vw;
@@ -78,21 +145,21 @@ body{
         border-radius: 2vw;
         border: 1px solid #aaa;
     }
-    #wrapper #usuario {
+    #s1 #usuario {
         border: 0.7vw solid #f00;
     }
-    #wrapper button{
+    #s1 button{
         margin-top: 6vw;
         font-size: 8vw;
         width: 30vw;
         height: 14vw;
         border-radius: 2vw;
     }
-    #wrapper h2{
+    #s1 h2{
 	    margin: 12vw 0;
 	    font-size: 8vw;
 	}
-	#wrapper h3{
+	#s1 h3{
 		display: none;
 	}
 }

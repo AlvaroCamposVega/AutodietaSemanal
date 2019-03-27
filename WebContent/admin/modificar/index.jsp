@@ -89,7 +89,8 @@
 	            while (listadoPrivilegios.next()) {
 	                    
 	            	String idPrivi = listadoPrivilegios.getString("Id");
-	                String privi = listadoPrivilegios.getString("Privilegio");
+	                String privi = listadoPrivilegios.getString("Privilegio").substring(0, 1).toUpperCase() +
+	                        listadoPrivilegios.getString("Privilegio").substring(1);
 	                    
 	                if (Integer.parseInt(idPrivi) == Integer.parseInt(idPrivilegio)) {
 	                        

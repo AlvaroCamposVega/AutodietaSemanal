@@ -29,8 +29,22 @@
     <title>Autodieta Semanal</title>
 </head>
 <body>
-    <div id="wrapper">
-        <h1>Iniciar Sesión</h1>
+	<header></header>
+    <nav>
+        <ul>
+            <li>
+                <a href="#">Inicio</a>
+            </li>
+            <li>
+                <a id="activo" href="#">Iniciar Sesión</a>
+            </li>
+            <li>
+                <a href="registro/">Registrarse</a>
+            </li>
+        </ul>
+    </nav>
+    <section id="s1">
+        <h1 class="tituloCentrado">Iniciar Sesión</h1>
         <form method="POST" action="inicio/">
         	<%= mensajeError %>
             <input name="usuario" type="text" placeholder="Usuario" maxlength="20" required><br>
@@ -38,6 +52,13 @@
             <button type="submit">Entrar</button>
         </form>
         <h2>¿No tienes cuenta? <a href="registro/">¡Registrate!</a></h2>
-    </div>
+    </section>
+    <footer>
+        <div>
+            <a>GitHub</a><br>
+            <a>LinkedIn</a><br>
+            <a>acvbusiness@gmail.com</a>
+        </div>
+    </footer>
 </body>
 </html>
