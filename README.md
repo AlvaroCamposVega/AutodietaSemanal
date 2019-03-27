@@ -3,7 +3,7 @@ Este es el entorno de desarrollo de Autodieta Semanal en el que se irán desarro
 
 ## Próximas actualizaciones
   
-#### *[Versión 2.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v2.0) (Trabajando ahora)*
+#### *[Versión 2.0.0](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo-v2.0.0) (Trabajando ahora)*
 * Cambiar algunas tablas de la base de datos.
 * Cambiar la estructura del proyecto. ***(Current)***
 * Mejorar la presentación. ***(Current)***
