@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link rel="icon" href="../static/img/favicon.png">
     <link rel="stylesheet" href=<%= formatoPagina %>>
-    <title>Autodieta Semanal</title>
+    <title>Autodieta</title>
 </head>
 <body>
 	<header></header>
