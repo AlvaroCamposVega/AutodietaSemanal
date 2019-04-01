@@ -102,6 +102,7 @@ body section#s1 h1.tituloCentrado {
     border-radius: 0.3vw;
     background-color: #4dbd33;
     color: #1e1e1e;
+    cursor: pointer;
 }
 #s1 button:hover{
     background-color: #46ad2e;
