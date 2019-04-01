@@ -7,7 +7,7 @@
 		session.removeAttribute("adLog");
 	
 		String mensajeError = "<h3>usuario o contraseña no válidos</h3>";
-		String formatoPagina = "\"../css/indexError.css\"";
+		String formatoPagina = "\"../static/css/indexError.css\"";
 		
 		if (session.getAttribute("usuario") != null) { // Si hay una sesión iniciada
 		    
@@ -17,14 +17,14 @@
 		if (request.getParameter("error") == null) { // Si no hay fallo de autenticación
 		    
 		    mensajeError = "";
-		    formatoPagina = "\"../css/index.css\"";
+		    formatoPagina = "\"../static/css/index.css\"";
 		}
 	%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="icon" href="../img/favicon.png">
+    <link rel="icon" href="../static/img/favicon.png">
     <link rel="stylesheet" href=<%= formatoPagina %>>
     <title>Autodieta Semanal</title>
 </head>
