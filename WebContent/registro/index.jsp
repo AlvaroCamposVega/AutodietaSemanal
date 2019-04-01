@@ -33,10 +33,10 @@
     <nav>
         <ul>
             <li>
-                <a href="#">Inicio</a>
+                <a href="../">Inicio</a>
             </li>
             <li>
-                <a href="../">Iniciar Sesión</a>
+                <a href="../login/">Iniciar Sesión</a>
             </li>
             <li>
                 <a id="activo" href="#">Registrarse</a>
