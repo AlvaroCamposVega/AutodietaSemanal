@@ -1,3 +1,4 @@
+<%@page import="servicios.DietaServicio"%>
 <%@page import="java.util.List"%>
 <%@page import="servicios.RecetaServicio"%>
 <%@page import="entidades.Receta"%>
@@ -86,38 +87,9 @@
 				
 				// GENERACIÓN DE LA DIETA
 				
-				RecetaServicio recetaServicio = new RecetaServicio();
+				DietaServicio dietaServicio = new DietaServicio();
 				
-				List<Receta> recetas = recetaServicio.buscaTodas();
-				
-				ResultSet listaIdRecetas = s.executeQuery("SELECT Id FROM receta");
-				ArrayList<String> idRecetas = new ArrayList<String>();
-			
-		        while (listaIdRecetas.next()) { // Volcamos todas las recetas disponibles en la lista
-		            
-		            idRecetas.add(listaIdRecetas.getString("Id"));
-		        }
-		        
-		        ArrayList<Dieta> dietaUsuario = Dieta.generaDietaUsuario(idRecetas); // Generamos la dieta del usuario
-		        String dietaUsuarioInsert = "INSERT INTO dieta (IdUsuario, IdReceta, IdHora, Dia) VALUES ";
-		        
-		        for (int i = 0; i < 28; i++) { // Creamos la variable para insertar los datos en la BBDD
-		            
-		            if (i == 0) {
-		                
-		                dietaUsuarioInsert += "('" + idUsuario + "', '" + dietaUsuario.get(i).getIdReceta() + "', '"
-		                	+ dietaUsuario.get(i).getIdHora() + "', '" + dietaUsuario.get(i).getDia() + "')";
-		                
-		            } else {
-		                
-		                dietaUsuarioInsert += ", ('" + idUsuario + "', '" + dietaUsuario.get(i).getIdReceta() + "', '"
-			                	+ dietaUsuario.get(i).getIdHora() + "', '" + dietaUsuario.get(i).getDia() + "')";
-		            }
-		        }
-		        
-		        s.execute(dietaUsuarioInsert); // Realizamos la inserción
-		        
-		        conexion.close();
+				dietaServicio.generaDieta(idUsuario);
 				
 				response.sendRedirect("../");
 	        }
