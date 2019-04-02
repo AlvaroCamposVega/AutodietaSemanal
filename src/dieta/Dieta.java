@@ -33,7 +33,9 @@ public class Dieta {
     
     // DEVUELVE LA DIETA DEL USUARIO EN UNA TABLA (ARRAY BIDIMENSIONAL)
     public static Dieta[][] generaTablaUsuarioDieta(String idUsuario) throws ClassNotFoundException, SQLException {
-        
+    	//--------------------------------
+    	// REPROGRAMADO EN DIETA_SERVICIO
+    	//--------------------------------
         Class.forName("com.mysql.jdbc.Driver");
         Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta",
                 "admin", "nimda12_34$");
@@ -43,7 +45,7 @@ public class Dieta {
         ResultSet listadoDieta = s.executeQuery("SELECT IdReceta, IdHora, Dia FROM dieta WHERE IdUsuario = "
                 + idUsuario);
         
-        // Creamos array bidimensional para almacenar las recetas y crear así la tabla
+        // Creamos array bidimensional para almacenar las recetas y crear asÃ­ la tabla
         Dieta[][] tabla = new Dieta[4][7];
         
         while (listadoDieta.next()) { // Recorremos la dieta del usuario
@@ -57,10 +59,10 @@ public class Dieta {
                 receta = nombreReceta.getString("nombre");
             }
             
-            if (listadoDieta.getString("IdHora").equals("1")) { // Añadimos los datos a la tabla en su respectivo orden
+            if (listadoDieta.getString("IdHora").equals("1")) { // AÃ±adimos los datos a la tabla en su respectivo orden
                 
                 /*
-                 Usamos devuelveNumDia(String) ya que el número devuelto coincide con la posición
+                 Usamos devuelveNumDia(String) ya que el nÃºmero devuelto coincide con la posiciÃ³n
                  en la que debe de ir la receta
                 */
                 tabla[0][devuelveNumDia(listadoDieta.getString("Dia"))] = new Dieta(listadoDieta.getString("IdReceta"), receta);
@@ -84,31 +86,35 @@ public class Dieta {
         return tabla;
     }
     
-    // DEVUELVE EL NÚMERO DEL DÍA DADO SU NOMBRE
+    // DEVUELVE EL NÃšMERO DEL DÃ�A DADO SU NOMBRE
     private static int devuelveNumDia(String dia) {
-        
+    	//--------------------------------
+    	// REPROGRAMADO EN DIETA_SERVICIO
+    	//--------------------------------
         switch (dia) {
         
             case "Lunes":
                 return 0;
             case "Martes":
                 return 1;        
-            case "Miércoles":
+            case "MiÃ©rcoles":
                 return 2;
             case "Jueves":
                 return 3;        
             case "Viernes":
                 return 4;
-            case "Sábado":
+            case "SÃ¡bado":
                 return 5;
             default:
                 return 6;
         }
     }
     
-    // DEVUELVE EL DÍA DADO SU NÚMERO DE LA SEMANA (DEL 0 AL 6)
+    // DEVUELVE EL DÃ�A DADO SU NÃšMERO DE LA SEMANA (DEL 0 AL 6)
     private static String devuelveDia(int dia) {
-        
+    	//--------------------------------
+    	// REPROGRAMADO EN DIETA_SERVICIO
+    	//--------------------------------
         switch (dia) {
         
             case 0:
@@ -116,13 +122,13 @@ public class Dieta {
             case 1:
                 return "Martes";        
             case 2:
-                return "Miércoles";
+                return "MiÃ©rcoles";
             case 3:
                 return "Jueves";        
             case 4:
                 return "Viernes";
             case 5:
-                return "Sábado";
+                return "SÃ¡bado";
             default:
                 return "Domingo";
         }
@@ -162,9 +168,9 @@ public class Dieta {
             }
         }
         
-        s.execute(dietaUsuarioInsert); // Realizamos la inserción
+        s.execute(dietaUsuarioInsert); // Realizamos la inserciÃ³n
         
-        // Proceso de obtención de la nueva fecha en la que expira la dieta
+        // Proceso de obtenciÃ³n de la nueva fecha en la que expira la dieta
         Calendar cal = Calendar.getInstance();
         
         // Obtenemos la fecha de hoy
@@ -179,7 +185,7 @@ public class Dieta {
         cal.set(Calendar.MONTH, mes);
         cal.set(Calendar.DATE, dia);
         
-        // Le añadimos 7 días a la fecha ya que la dieta se renueva cada semana
+        // Le aÃ±adimos 7 dÃ­as a la fecha ya que la dieta se renueva cada semana
         cal.add(Calendar.DATE, 7);
         
         Date fechaSql = new Date(cal.getTimeInMillis()); // Formateamos la fecha para que se pueda almacenar en sql
@@ -248,10 +254,10 @@ public class Dieta {
                 
                 dieta = dietas[fila][celda];
 
-                // Si es lunes nos dará igual la receta menos comida libre
+                // Si es lunes nos darÃ¡ igual la receta menos comida libre
                 if (dieta.getDia().equals("Lunes")) {
                     
-                    // Si estamos de la comida en adelante, hacemos que no se repita la receta del día anterior
+                    // Si estamos de la comida en adelante, hacemos que no se repita la receta del dÃ­a anterior
                     if (fila > 0) {
                         
                         compruebaCelda(
@@ -265,9 +271,9 @@ public class Dieta {
                         compruebaCelda(dietas[fila][celda], BiblioArrayList.copiaArrayList(recetasDisponibles), s);
                     }
                 
-                // Si es sábado o domingo podrá tocar comida libre y tendrá más posibilidades de aparecer
-                // en la comida y en la cena. Falta implementar que solo puede aparecer 3 máximo
-                } else if (dieta.getDia().equals("Sábado") || dieta.getDia().equals("Domingo")) {
+                // Si es sÃ¡bado o domingo podrÃ¡ tocar comida libre y tendrÃ¡ mÃ¡s posibilidades de aparecer
+                // en la comida y en la cena. Falta implementar que solo puede aparecer 3 mÃ¡ximo
+                } else if (dieta.getDia().equals("SÃ¡bado") || dieta.getDia().equals("Domingo")) {
                     
                     compruebaSabadoDomingo(
                             dietas[fila][celda],
@@ -275,7 +281,7 @@ public class Dieta {
                             s
                     );
                 
-                // Si es cualquier otro día se deberá comprobar que no se repita con la del día anterior
+                // Si es cualquier otro dÃ­a se deberÃ¡ comprobar que no se repita con la del dÃ­a anterior
                 } else {
                     
                     compruebaCelda(
@@ -288,7 +294,7 @@ public class Dieta {
         }
     }
     
-    // ELIMINA LA RECETA DEL DÍA ANTERIOR PARA QUE ESTA NO SE REPITA
+    // ELIMINA LA RECETA DEL DÃ�A ANTERIOR PARA QUE ESTA NO SE REPITA
     private static ArrayList<String> eliminaRecetaDiaAnterior(Dieta dieta, ArrayList<String> recetasDisponibles) {
         
         // CREO QUE LISTO, REVISAR
@@ -301,16 +307,16 @@ public class Dieta {
         return copiaRecetasDisponibles;
     }
     
-    // ELIGE LA RECETA PARA EL SÁBADO Y EL DOMINGO
+    // ELIGE LA RECETA PARA EL SÃ�BADO Y EL DOMINGO
     private static void compruebaSabadoDomingo(Dieta dieta, ArrayList<String> recetasDisponibles, Statement s)
             throws SQLException {
         
-        // FALTA IMPLEMENTAR EL LÍMITE DE 3 COMIDAS LIBRES
+        // FALTA IMPLEMENTAR EL LÃ�MITE DE 3 COMIDAS LIBRES
 
         String libre = devuelveIdComidaLibre(s);
         ArrayList<String> copiaRecetasDisponibles = recetasDisponibles;
         
-        // Si es la hora de la comida o cena es más probable que toque comida libre
+        // Si es la hora de la comida o cena es mÃ¡s probable que toque comida libre
         if (dieta.getIdHora().equals("2") || dieta.getIdHora().equals("4")) {
             
             copiaRecetasDisponibles.add(libre);
@@ -323,7 +329,7 @@ public class Dieta {
         }
     }
     
-    // ELIGE LA RECETA PARA EL RESTO DE DÍAS
+    // ELIGE LA RECETA PARA EL RESTO DE DÃ�AS
     private static void compruebaCelda(Dieta dieta, ArrayList<String> recetasDisponibles, Statement s)
             throws SQLException {
         
