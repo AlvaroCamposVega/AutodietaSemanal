@@ -10,7 +10,6 @@ import java.util.List;
 
 import daos.RecetaDAO;
 import daosImplementaciones.RecetaDAOImpl;
-import entidades.Hora;
 import entidades.Receta;
 
 /**
@@ -58,34 +57,91 @@ public class RecetaServicio implements RecetaDAO {
 		return recetaDAO.actualiza(receta);
 	}
 	
+//	/**
+//	 * Devuelve una lista con todas las horas disponibles para una receta con la id especificada.
+//	 * Por ejemplo, la receta con nombre "pan con aceite" puede consumirse tanto en el desayuno
+//	 * como en la merienda.
+//	 * 
+//	 * @param id La {@link entidades.Receta#id id} de la {@link entidades.Receta receta}.
+//	 * @return Una lista con todas las horas disponibles.
+//	 * @throws SQLException
+//	 */
+//	public List<Hora> buscaHorasPorIdReceta(int id) throws SQLException {
+//		
+//		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
+//		Statement s = conexion.createStatement();
+//		ResultSet rsHora = s.executeQuery("exec HRbuscaPorIdReceta " + id);
+//
+//		HoraServicio horaServicio = new HoraServicio();
+//		
+//		List<Hora> horas = new ArrayList<Hora>();
+//		
+//		while (rsHora.next()) { // Recogemos los datos de las horas
+//
+//			Hora hora = horaServicio.buscaPorId(Integer.parseInt(rsHora.getString("IdHora"))); // Creamos el objeto de la hora
+//
+//			horas.add(hora); // Añadimos las horas a la lista de horas
+//		}
+//		
+//		conexion.close();
+//		return horas;
+//	}
+	
 	/**
-	 * Devuelve una lista con todas las horas disponibles para una receta con la id especificada.
-	 * Por ejemplo, la receta con nombre "pan con aceite" puede consumirse tanto en el desayuno
-	 * como en la merienda.
+	 * Devuelve una lista con todas las recetas disponibles para una hora
+	 * concreta.
 	 * 
-	 * @param id La {@link entidades.Receta#id id} de la {@link entidades.Receta receta}.
-	 * @return Una lista con todas las horas disponibles.
+	 * @param hora La {@link entidades.Hora hora}.
+	 * @return Una lista con todas las recetas disponibles.
 	 * @throws SQLException
 	 */
-	public List<Hora> buscaHorasPorIdReceta(int id) throws SQLException {
+	public List<Receta> buscaRecetasPorIdHora(int id) throws SQLException {
 		
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
 		Statement s = conexion.createStatement();
-		ResultSet rsHora = s.executeQuery("exec HRbuscaPorIdReceta " + id);
+		ResultSet rsReceta = s.executeQuery("exec HRbuscaPorIdHora " + id);
 
-		HoraServicio horaServicio = new HoraServicio();
+		RecetaServicio recetaServicio = new RecetaServicio();
 		
-		List<Hora> horas = new ArrayList<Hora>();
+		List<Receta> recetas = new ArrayList<Receta>();
 		
-		while (rsHora.next()) { // Recogemos los datos de las dietas
+		while (rsReceta.next()) { // Recogemos los datos de las recetas
 
-			Hora hora = horaServicio.buscaPorId(Integer.parseInt(rsHora.getString("IdHora"))); // Creamos el objeto de la hora
+			Receta receta = recetaServicio.buscaPorId(Integer.parseInt(rsReceta.getString("IdReceta"))); // Creamos el objeto de la receta
 
-			horas.add(hora); // Añadimos las horas a la lista de horas
+			recetas.add(receta); // Añadimos las recetas a la lista de recetas
 		}
 		
 		conexion.close();
-		return horas;
+		return recetas;
 	}
+	
+	/**
+	 * Devuelve la receta de la comida libre.
+	 * 
+	 * @return La receta de la comida libre.
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 */
+	public Receta buscaRecetaComidaLibre() throws NumberFormatException, SQLException {
+		
+		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
+		Statement s = conexion.createStatement();
+		ResultSet rsRecetaComidaLibre = s.executeQuery("exec REbuscaComidaLibre");
+		
+		Receta recetaComidaLibre = null;
+		
+		while (rsRecetaComidaLibre.next()) { // Recogemos los datos de la receta
 
+			int id = Integer.parseInt(rsRecetaComidaLibre.getString("Id"));
+			String nombre = rsRecetaComidaLibre.getString("Nombre");
+			String ingredientes = rsRecetaComidaLibre.getString("Ingredientes");
+			String descripcion = rsRecetaComidaLibre.getString("Descripcion");
+			
+			recetaComidaLibre = new Receta(id, nombre, ingredientes, descripcion); // Creamos el objeto de la receta
+		}
+		
+		conexion.close();
+		return recetaComidaLibre;
+	}
 }

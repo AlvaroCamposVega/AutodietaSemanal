@@ -13,6 +13,7 @@ import daosImplementaciones.UsuarioDAOImpl;
 import entidades.Dieta;
 import entidades.Hora;
 import entidades.Receta;
+import entidades.Rol;
 import entidades.Usuario;
 
 /**
@@ -98,5 +99,20 @@ public class UsuarioServicio implements UsuarioDAO {
 		
 		conexion.close();
 		return dietas;
+	}
+	
+	/**
+	 * Devuelve el Rol de un usuario dada la id de este.
+	 * 
+	 * @param id La {@link entidades.Usuario#id id} del {@link entidades.Usuario usuario}.
+	 * @return El {@link entidades.Rol Rol} del usuario.
+	 * @throws SQLException
+	 */
+	public Rol buscaRolPorIdUsuario(int id) throws SQLException {
+		
+		UsuarioServicio usuarioServicio = new UsuarioServicio();
+		
+		// Creamos el objeto del rol obteniendo el rol referenciado en el usuario
+		return usuarioServicio.buscaPorId(id).getRol();
 	}
 }

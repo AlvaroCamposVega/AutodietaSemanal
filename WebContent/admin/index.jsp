@@ -10,24 +10,24 @@
 <html lang="es">
 <head>
 	<%
-		String formatoPagina = "\"../css/adminError3.css\"";
+		String formatoPagina = "\"../static/css/adminError3.css\"";
 		String htmlError = "<div id=\"capaError\"><h1 id=\"textoError\">Nombre de usuario no disponible<br>La fecha debe ser superior a la de hoy" +
 		        "</h1><button class=\"can\" onclick=\"ocultar('oscurecer', 'capaError')\">Cerrar</button</div>";
 	
 		if (request.getParameter("error") == null) {
 		    
-		    formatoPagina = "\"../css/admin.css\"";
+		    formatoPagina = "\"../static/css/admin.css\"";
 		    htmlError = "";
 		    
 		} else if (Integer.parseInt(request.getParameter("error")) == 1) {
 		    
-		    formatoPagina = "\"../css/adminError1.css\"";
+		    formatoPagina = "\"../static/css/adminError1.css\"";
 		    htmlError = "<div id=\"capaError\"><h1 id=\"textoError\">Nombre de usuario no disponible</h1>" +
 				"</h1><button class=\"can\" onclick=\"ocultar('oscurecer', 'capaError')\">Cerrar</button</div>";;
 		    
 		} else if (Integer.parseInt(request.getParameter("error")) == 2) {
 		    
-		    formatoPagina = "\"../css/adminError2.css\"";
+		    formatoPagina = "\"../static/css/adminError2.css\"";
 		    htmlError = "<div id=\"capaError\"><h1 id=\"textoError\">La fecha debe ser superior a la de hoy</h1>" +
 				"</h1><button class=\"can\" onclick=\"ocultar('oscurecer', 'capaError')\">Cerrar</button</div>";
 		}
@@ -37,8 +37,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href=<%= formatoPagina %>>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="icon" href="../img/favicon.png">
-    <script src="../js/script.js" type="text/javascript"></script>
+    <link rel="icon" href="../static/img/favicon.png">
+    <script src="../static/js/script.js" type="text/javascript"></script>
     <title>Autodieta</title>
 </head>
 <body>

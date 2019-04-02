@@ -61,7 +61,7 @@ body nav ul li a#activo:hover {
     width: 100%;
 }
 body section#s1 h1.tituloCentrado {
-    padding: 2.4vw 0 3.9vw 0;
+    padding: 2.4vw 0 1vw 0;
     text-align: center;
     font-size: 4vw;
     color: #262626;
@@ -72,6 +72,12 @@ body section#s1 h1.tituloCentrado {
     margin: 4vw 0;
     font-size: 1.5vw;
     color: #222;
+}
+#s1 h3{
+	color: #f00;
+	font-weight: normal;
+	font-size: 1.3vw;
+	margin-bottom: 1vw;
 }
 #s1 form{
     text-align: center;
@@ -85,6 +91,9 @@ body section#s1 h1.tituloCentrado {
     border: 1px solid #7d7d7d;
     background-color: #f5f5f5;
 }
+#s1 #usuario {
+	border: 2px solid #f00;
+}
 #s1 button{
     margin-top: 1.8vw;
     font-size: 1.8vw;
@@ -93,6 +102,7 @@ body section#s1 h1.tituloCentrado {
     border-radius: 0.3vw;
     background-color: #4dbd33;
     color: #1e1e1e;
+    cursor: pointer;
 }
 #s1 button:hover{
     background-color: #46ad2e;
@@ -126,7 +136,7 @@ body footer div {
 
     #s1 h1{
         font-size: 16vw;
-        padding: 10vw 0;
+        padding: 20vw 0;
     }
     #s1 input{
         font-size: 8vw;
@@ -135,6 +145,9 @@ body footer div {
         margin-bottom: 5vw;
         border-radius: 2vw;
         border: 1px solid #aaa;
+    }
+    #s1 #usuario {
+        border: 0.7vw solid #f00;
     }
     #s1 button{
         margin-top: 6vw;
@@ -146,5 +159,8 @@ body footer div {
     #s1 h2{
 	    margin: 12vw 0;
 	    font-size: 8vw;
+	}
+	#s1 h3{
+		display: none;
 	}
 }

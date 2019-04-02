@@ -8,22 +8,22 @@
 <html lang="es">
 <head>
 	<%
-		String formatoPagina = "\"../../css/modificarError3.css\"";
+		String formatoPagina = "\"../../static/css/modificarError3.css\"";
 		String textoError = "<h1 id=\"textoError\">Nombre de usuario no disponible<br>La fecha debe ser superior a la de hoy</h1>";
 	
 		if (request.getParameter("error") == null) {
 		    
-		    formatoPagina = "\"../../css/modificar.css\"";
+		    formatoPagina = "\"../../static/css/modificar.css\"";
 		    textoError = "";
 		    
 		} else if (Integer.parseInt(request.getParameter("error")) == 1) {
 		    
-		    formatoPagina = "\"../../css/modificarError1.css\"";
+		    formatoPagina = "\"../../static/css/modificarError1.css\"";
 		    textoError = "<h1 id=\"textoError\">Nombre de usuario no disponible</h1>";
 		    
 		} else if (Integer.parseInt(request.getParameter("error")) == 2) {
 		    
-		    formatoPagina = "\"../../css/modificarError2.css\"";
+		    formatoPagina = "\"../../static/css/modificarError2.css\"";
 		    textoError = "<h1 id=\"textoError\">La fecha debe ser superior a la de hoy</h1>";
 		}
 	%>
@@ -32,7 +32,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href=<%= formatoPagina %>>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../static/img/favicon.png">
     <title>Autodieta</title>
 </head>
 <body>

@@ -7,12 +7,12 @@
 		session.removeAttribute("adLog");
 	
 		String mensajeError = "<h3>usuario no disponible</h3>";
-		String formatoPagina = "\"../css/registroError.css\"";
+		String formatoPagina = "\"../static/css/registroError.css\"";
 		
 		if (request.getParameter("error") == null) {
 		    
 		    mensajeError = "";
-		    formatoPagina = "\"../css/registro.css\"";
+		    formatoPagina = "\"../static/css/registro.css\"";
 		}
 		
 		if (session.getAttribute("usuario") != null) { // Si hay una sesión iniciada no se puede acceder
@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="icon" href="../img/favicon.png">
+    <link rel="icon" href="../static/img/favicon.png">
     <link rel="stylesheet" href=<%= formatoPagina %>>
     <title>Autodieta</title>
 </head>
@@ -33,10 +33,10 @@
     <nav>
         <ul>
             <li>
-                <a href="#">Inicio</a>
+                <a href="../">Inicio</a>
             </li>
             <li>
-                <a href="../">Iniciar Sesión</a>
+                <a href="../login/">Iniciar Sesión</a>
             </li>
             <li>
                 <a id="activo" href="#">Registrarse</a>

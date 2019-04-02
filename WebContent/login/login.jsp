@@ -26,7 +26,6 @@
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta","admin", "nimda12_34$");
 		Statement s = conexion.createStatement();
 		String usuario = "";
-		String usuarioHash = "";
 		String contrasena = "";
 		boolean accesoLegal = true;
 	
@@ -40,7 +39,6 @@
 	    	} else { // Si el acceso es legítimo
 
 	    	    usuario = request.getParameter("usuario"); // Obtenemos datos del formulario
-	    	    usuarioHash = DigestUtils.sha256Hex(usuario);
 	    	    contrasena = DigestUtils.sha256Hex(request.getParameter("contrasena"));
 	    	}
 			
@@ -49,7 +47,6 @@
 			if (request.getParameter("usuario") != null) { // Si se inicia una nueva sesión
 		    	
 			    usuario = request.getParameter("usuario"); // Obtenemos datos del formulario
-			    usuarioHash = DigestUtils.sha256Hex(usuario);
 			    contrasena = DigestUtils.sha256Hex(request.getParameter("contrasena"));
 		    	
 	    	} else { // Si no se está iniciando una nueva sesión
@@ -72,10 +69,10 @@
 		    
 		    String usuarioId = "";
 			String usuarioPrivilegio = "";
-			ResultSet listado = s.executeQuery("SELECT * FROM usuario WHERE (nombre = '" + usuario +
-				"' OR nombre = '" + usuarioHash + "') AND contrasena = '" + contrasena + "'");
+			ResultSet listado = s.executeQuery("SELECT * FROM usuario WHERE nombre = '" + usuario +
+				"' AND contrasena = '" + contrasena + "'");
 
-			while (listado.next()) { // Obtenemos el Id e IdPrivilegio del usuario (y la fecha de expiración de la dieta)
+			while (listado.next()) { // Obtenemos el Id e IdPrivilegio del usuario
 			    
 			    usuarioId = listado.getString("Id");
 			    usuarioPrivilegio = listado.getString("IdPrivilegio");
