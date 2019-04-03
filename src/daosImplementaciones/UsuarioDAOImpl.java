@@ -71,6 +71,32 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		conexion.close();
 		return usuario;
 	}
+	
+	@Override
+	public List<Usuario> buscaPorRol(Rol rol) throws SQLException {
+		
+		conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
+		Statement s = conexion.createStatement();
+		ResultSet rsUsuarios = s.executeQuery("exec USbuscaTodosPorRol " + rol.getId());
+
+		RolServicio rolServicio = new RolServicio();
+		
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		while (rsUsuarios.next()) { // Recogemos los datos de las recetas
+
+			int id = Integer.parseInt(rsUsuarios.getString("Id"));
+			Rol rolUs = rolServicio.buscaPorId(Integer.parseInt(rsUsuarios.getString("IdRol")));
+			String nombre = rsUsuarios.getString("Nombre");
+			String contrasena = rsUsuarios.getString("Contrasena");
+			String expiraDieta = rsUsuarios.getString("ExpiraDieta");
+
+			usuarios.add(new Usuario(id, rolUs, nombre, contrasena, expiraDieta)); // Añadimos los usuarios a la lista de usuarios
+		}
+		
+		conexion.close();
+		return usuarios;
+	}
 
 	@Override
 	public List<Usuario> buscaTodos() throws SQLException {

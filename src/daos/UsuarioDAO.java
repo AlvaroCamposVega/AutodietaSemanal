@@ -3,6 +3,7 @@ package daos;
 import java.sql.SQLException;
 import java.util.List;
 
+import entidades.Rol;
 import entidades.Usuario;
 
 /**
@@ -31,6 +32,17 @@ public interface UsuarioDAO {
 	 * @throws SQLException
 	 */
 	public Usuario buscaPorNombre(String nombre) throws SQLException;
+	
+	/**
+	 * Devuelve una lista de usuarios pertenecientes al rol especificado.
+	 * 
+	 * @param rol El rol al que pertenecen los {@link entidades.Usuario usuarios}
+	 * que se desean obtener.
+	 * @return Una lista con los usuarios pertenecientes al
+	 * {@link entidades.Rol rol} especificado.
+	 * @throws SQLException
+	 */
+	public List<Usuario> buscaPorRol(Rol rol) throws SQLException;
 	
 	/**
 	 * Devuelve una lista con todos los usuarios existentes en la base de datos.

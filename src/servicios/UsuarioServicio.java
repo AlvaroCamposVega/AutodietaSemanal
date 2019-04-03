@@ -1,11 +1,6 @@
 package servicios;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import daos.UsuarioDAO;
@@ -40,6 +35,11 @@ public class UsuarioServicio implements UsuarioDAO {
 		return usuarioDAO.buscaPorNombre(nombre);
 	}
 
+	public List<Usuario> buscaPorRol(Rol rol) throws SQLException {
+		
+		return usuarioDAO.buscaPorRol(rol);
+	}
+
 	@Override
 	public List<Usuario> buscaTodos() throws SQLException {
 
@@ -62,39 +62,5 @@ public class UsuarioServicio implements UsuarioDAO {
 	public boolean actualiza(Usuario usuario) throws SQLException {
 
 		return usuarioDAO.actualiza(usuario);
-	}
-	
-	/**
-	 * Devuelve una lista de usuarios pertenecientes al rol especificado.
-	 * 
-	 * @param rol El rol al que pertenecen los {@link entidades.Usuario usuarios}
-	 * que se desean obtener.
-	 * @return Una lista con los usuarios pertenecientes al
-	 * {@link entidades.Rol rol} especificado.
-	 * @throws SQLException
-	 */
-	public List<Usuario> buscaUsuariosPorRol(Rol rol) throws SQLException {
-		
-		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
-		Statement s = conexion.createStatement();
-		ResultSet rsUsuarios = s.executeQuery("exec USbuscaTodosPorRol " + rol.getId());
-
-		RolServicio rolServicio = new RolServicio();
-		
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		while (rsUsuarios.next()) { // Recogemos los datos de las recetas
-
-			int id = Integer.parseInt(rsUsuarios.getString("Id"));
-			Rol rolUs = rolServicio.buscaPorId(Integer.parseInt(rsUsuarios.getString("IdRol")));
-			String nombre = rsUsuarios.getString("Nombre");
-			String contrasena = rsUsuarios.getString("Contrasena");
-			String expiraDieta = rsUsuarios.getString("ExpiraDieta");
-
-			usuarios.add(new Usuario(id, rolUs, nombre, contrasena, expiraDieta)); // Añadimos los usuarios a la lista de usuarios
-		}
-		
-		conexion.close();
-		return usuarios;
 	}
 }
