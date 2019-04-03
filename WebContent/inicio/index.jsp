@@ -68,7 +68,7 @@
 		
 		if (accesoLegal) {
 		    
-		    out.print("<h2>" + usuario + " <a href=\"../cerrarSesion/\">Cerrar sesión</a></h2>");
+		    out.print("<h2>" + usuario + " <a href=\"../logout/\">Cerrar sesión</a></h2>");
 		    
 		    String usuarioId = "";
 			String usuarioPrivilegio = "";

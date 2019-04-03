@@ -40,7 +40,7 @@
 				
 				DietaServicio dietaServicio = new DietaServicio();
 				
-				out.print("<h2>" + usuario + " <a href=\"../cerrarSesion/\">Cerrar sesión</a></h2>");
+				out.print("<h2>" + usuario + " <a href=\"../logout/\">Cerrar sesión</a></h2>");
 					    
 				if (!BiblioUtilidades.compruebaFecha(usuario.getExpiraDieta())) { // Si la deita ha expirado la actualizamos
 					
@@ -151,7 +151,7 @@
 					if (!rolEle.getRol().equals("admin")) {
 						
 			    	    String rolNombre = rolEle.getRol().substring(0, 1).toUpperCase() + rolEle.getRol().substring(1);
-			    		List<Usuario> usuarios = usuarioServicio.buscaUsuariosPorRol(rolEle);
+			    		List<Usuario> usuarios = usuarioServicio.buscaPorRol(rolEle);
 			    		
 			    		for (Usuario usuarioEle : usuarios) {
 			    			
