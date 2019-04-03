@@ -10,6 +10,7 @@ import entidades.Usuario;
  * @see daos.RecetaDAO RecetaDAO
  * @see daos.RolDAO RolDAO
  * @see daos.HoraDAO HoraDAO
+ * @see daos.DietaDAO DietaDAO
  */
 public interface UsuarioDAO {
 
