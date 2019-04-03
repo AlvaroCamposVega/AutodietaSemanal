@@ -47,7 +47,7 @@ public class RolServicio implements RolDAO {
 	 * @return El {@link entidades.Rol Rol} del usuario.
 	 * @throws SQLException
 	 */
-	public Rol buscaRolPorIdUsuario(int id) throws SQLException {
+	public Rol buscaPorIdUsuario(int id) throws SQLException {
 		
 		UsuarioServicio usuarioServicio = new UsuarioServicio();
 		
