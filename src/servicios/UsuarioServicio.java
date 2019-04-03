@@ -10,9 +10,6 @@ import java.util.List;
 
 import daos.UsuarioDAO;
 import daosImplementaciones.UsuarioDAOImpl;
-import entidades.Dieta;
-import entidades.Hora;
-import entidades.Receta;
 import entidades.Rol;
 import entidades.Usuario;
 
@@ -68,51 +65,36 @@ public class UsuarioServicio implements UsuarioDAO {
 	}
 	
 	/**
-	 * Devuelve una lista con todas las dietas del usuario con la id especificada.
+	 * Devuelve una lista de usuarios pertenecientes al rol especificado.
 	 * 
-	 * @param id La {@link entidades.Usuario#id id} del {@link entidades.Usuario usuario}.
-	 * @return Una lista con todas las dietas.
+	 * @param rol El rol al que pertenecen los {@link entidades.Usuario usuarios}
+	 * que se desean obtener.
+	 * @return Una lista con los usuarios pertenecientes al
+	 * {@link entidades.Rol rol} especificado.
 	 * @throws SQLException
 	 */
-	public List<Dieta> buscaDietaPorIdUsuario(int id) throws SQLException {
+	public List<Usuario> buscaUsuariosPorRol(Rol rol) throws SQLException {
 		
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
 		Statement s = conexion.createStatement();
-		ResultSet rsDieta = s.executeQuery("exec DIbuscaPorIdUsuario " + id);
+		ResultSet rsUsuarios = s.executeQuery("exec USbuscaTodosPorRol " + rol.getId());
+
+		RolServicio rolServicio = new RolServicio();
 		
-		RecetaServicio recetaServicio = new RecetaServicio();
-		HoraServicio horaServicio = new HoraServicio();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
-		List<Dieta> dietas = new ArrayList<Dieta>();
-		Dieta dieta = null;
-		
-		while (rsDieta.next()) { // Recogemos los datos de las dietas
-			
-			Usuario usuario = usuarioDAO.buscaPorId(Integer.parseInt(rsDieta.getString("IdUsuario")));
-			Receta receta = recetaServicio.buscaPorId(Integer.parseInt(rsDieta.getString("IdReceta")));
-			Hora hora = horaServicio.buscaPorId(Integer.parseInt(rsDieta.getString("IdHora")));
-			String dia = rsDieta.getString("Dia");
-			
-			dieta = new Dieta(usuario, receta, hora, dia); // Creamos el objeto de la dieta
-			dietas.add(dieta); // Añadimos las dietas a la lista de dietas
+		while (rsUsuarios.next()) { // Recogemos los datos de las recetas
+
+			int id = Integer.parseInt(rsUsuarios.getString("Id"));
+			Rol rolUs = rolServicio.buscaPorId(Integer.parseInt(rsUsuarios.getString("IdRol")));
+			String nombre = rsUsuarios.getString("Nombre");
+			String contrasena = rsUsuarios.getString("Contrasena");
+			String expiraDieta = rsUsuarios.getString("ExpiraDieta");
+
+			usuarios.add(new Usuario(id, rolUs, nombre, contrasena, expiraDieta)); // Añadimos los usuarios a la lista de usuarios
 		}
 		
 		conexion.close();
-		return dietas;
-	}
-	
-	/**
-	 * Devuelve el Rol de un usuario dada la id de este.
-	 * 
-	 * @param id La {@link entidades.Usuario#id id} del {@link entidades.Usuario usuario}.
-	 * @return El {@link entidades.Rol Rol} del usuario.
-	 * @throws SQLException
-	 */
-	public Rol buscaRolPorIdUsuario(int id) throws SQLException {
-		
-		UsuarioServicio usuarioServicio = new UsuarioServicio();
-		
-		// Creamos el objeto del rol obteniendo el rol referenciado en el usuario
-		return usuarioServicio.buscaPorId(id).getRol();
+		return usuarios;
 	}
 }
