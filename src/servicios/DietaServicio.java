@@ -1,15 +1,14 @@
 package servicios;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import biblio.BiblioMatematicas;
+import biblio.BiblioUtilidades;
+import daos.DietaDAO;
+import daosImplementaciones.DietaDAOImpl;
 import entidades.Dieta;
-import entidades.Hora;
 import entidades.Receta;
 import entidades.Usuario;
 
@@ -17,13 +16,39 @@ import entidades.Usuario;
  * Esta clase es el servicio que usará el cliente
  * para obtener datos de una dieta de la base de datos.
  */
-public class DietaServicio {
+public class DietaServicio implements DietaDAO {
+	
+	private DietaDAOImpl dietaDAO = new DietaDAOImpl();
 
 	/**
 	 * Genera una instancia del {@link DietaServicio servicio}.
 	 */
 	public DietaServicio() {
 
+	}
+
+	@Override
+	public List<Dieta> buscaPorIdUsuario(int id) throws SQLException {
+
+		return dietaDAO.buscaPorIdUsuario(id);
+	}
+
+	@Override
+	public boolean salva(List<Dieta> dietas) throws SQLException {
+
+		return dietaDAO.salva(dietas);
+	}
+
+	@Override
+	public boolean elimina(int id) throws SQLException {
+
+		return dietaDAO.elimina(id);
+	}
+
+	@Override
+	public boolean actualiza(int id) throws SQLException, ClassNotFoundException {
+
+		return dietaDAO.actualiza(id);
 	}
 
 	/**
@@ -36,9 +61,9 @@ public class DietaServicio {
 	 */
 	public Dieta[][] generaTablaDietaUsuario(int id) throws SQLException {
 		
-		UsuarioServicio usuarioServicio = new UsuarioServicio();
+		DietaServicio dietaServicio = new DietaServicio();
 		
-		List<Dieta> dietas = usuarioServicio.buscaDietaPorIdUsuario(id);
+		List<Dieta> dietas = dietaServicio.buscaPorIdUsuario(id);
         
         // Creamos array bidimensional para almacenar las recetas y crear así la tabla
         Dieta[][] tabla = new Dieta[4][7];
@@ -65,6 +90,41 @@ public class DietaServicio {
         
         return tabla;
     }
+    
+    /**
+     * Genera una dieta aleatoria para el usuario con la id especificada.
+     * 
+     * @param id la id del {@link entidades.Usuario usuario}.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public List<Dieta> generaDieta(int id) throws SQLException, ClassNotFoundException {
+        
+    	// SERVICIOS
+    	HoraServicio horaServicio = new HoraServicio();
+    	UsuarioServicio usuarioServicio = new UsuarioServicio();
+
+    	// VARIABLES
+        Usuario usuario = usuarioServicio.buscaPorId(id);
+        Dieta[][] dietas = new Dieta[4][7];
+        String[] dias = new String[] {
+    			
+        	"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+        };
+        
+        for (int hora = 0; hora < 4; hora++) { // Configuración del array bidimensional y sus dietas
+            
+            for (int dia = 0; dia < 7; dia++) {
+                
+            	// Todas las dietas pertenecen al mismo usuario y se les configura la hora y el día
+                dietas[hora][dia] = new Dieta(usuario, null, horaServicio.buscaPorId(hora + 1), dias[dia]);
+            }
+        }
+        
+        DietaServicio.seleccionaRecetas(dietas); // Configuración de las recetas para cada una de las dietas
+
+        return BiblioUtilidades.toList(dietas);
+    }
 	
 	/**
 	 * Devuelve el número del día dado su nombre.
@@ -90,70 +150,6 @@ public class DietaServicio {
             default:
                 return 6;
         }
-    }
-    
-    /**
-     * Genera una dieta aleatoria para el usuario con la id especificada.
-     * 
-     * @param id la id del {@link entidades.Usuario usuario}.
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public void generaDieta(int id) throws SQLException, ClassNotFoundException {
-        
-    	// SERVICIOS
-    	HoraServicio horaServicio = new HoraServicio();
-    	UsuarioServicio usuarioServicio = new UsuarioServicio();
-
-    	// VARIABLES
-        Usuario usuario = usuarioServicio.buscaPorId(id);
-        Dieta[][] dietas = new Dieta[4][7];
-        String[] dias = new String[] {
-    			
-        	"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
-        };
-        
-        for (int hora = 0; hora < 4; hora++) { // Configuración del array bidimensional y sus dietas
-            
-            for (int dia = 0; dia < 7; dia++) {
-                
-            	// Todas las dietas pertenecen al mismo usuario y se les configura la hora y el día
-                dietas[hora][dia] = new Dieta(usuario, null, horaServicio.buscaPorId(hora + 1), dias[dia]);
-            }
-        }
-        
-        DietaServicio.seleccionaRecetas(dietas); // Configuración de las recetas para cada una de las dietas
-        
-		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta", "admin", "nimda12_34$");
-		Statement s = conexion.createStatement();
-        String insertarDieta = "INSERT INTO dieta (IdUsuario, IdReceta, IdHora, Dia) VALUES ";
-        
-        int idUsuario = usuario.getId();
-        
-        for (int fila = 0; fila < 4; fila++) { // Recorremos la lista de dietas para configurar la variable de inserción
-        	
-        	for (int col = 0; col < 7; col++) {
-        		
-        		// VARIABLES
-        		Receta receta = dietas[fila][col].getReceta();
-    			Hora hora = dietas[fila][col].getHora();
-    			String dia = dietas[fila][col].getDia();
-        		
-        		if (fila == 0 && col == 0) { // El primer registro no tiene una coma al principio
-                    
-        			insertarDieta += "('" + idUsuario + "', '" + receta.getId() + "', '"
-                    	+ hora.getId() + "', '" + dia + "')";
-                    
-                } else { // Los demás sí
-                    
-                	insertarDieta += ", ('" + idUsuario + "', '" + receta.getId() + "', '"
-    	                	+ hora.getId() + "', '" + dia + "')";
-                }
-        	}
-        }
-        
-        s.execute(insertarDieta); // Realizamos la inserción
-        conexion.close();
     }
     
     /**
@@ -213,19 +209,35 @@ public class DietaServicio {
     }
     
     /**
-     * Devuelve una lista con la receta del día anterior eliminada.
-     * @param dieta La dieta del día anterior.
-     * @param recetasDisponibles La lista de recetas disponibles de la cual eliminaremos la receta.
-     * @return Una lista con la receta del día anterior eliminada.
+     * Selecciona la receta para la dieta especificada entre las recetas disponibles.
+     * 
+     * @param dieta La dieta para la que se va a seleccionar la receta.
+     * @param recetasDisponibles La lista que almacena las recetas disponibles.
+     * @throws SQLException
      */
-    private static List<Receta> eliminaRecetaDiaAnterior(Dieta dieta, List<Receta> recetasDisponibles) {
+    private static void seleccionaReceta(Dieta dieta, List<Receta> recetasDisponibles)
+            throws SQLException {
 
-        Receta receta = dieta.getReceta();
+    	// SERVICIOS
+    	RecetaServicio recetaServicio = new RecetaServicio();
+        
+    	// VARIABLES
+        Receta recetaComidaLibre = recetaServicio.buscaRecetaComidaLibre();
         List<Receta> copiaRecetasDisponibles = new ArrayList<Receta>(recetasDisponibles);
-        
-        copiaRecetasDisponibles.remove(receta);
-        
-        return copiaRecetasDisponibles;
+    	
+        // Si es sábado o domingo podrá tocar comida libre y tendrá más posibilidades de aparecer
+        // en la comida y en la cena. Falta implementar que solo puede aparecer 3 máximo
+    	if (dieta.getDia().equals("Sábado") || dieta.getDia().equals("Domingo")) {
+    		
+    		DietaServicio.seleccionaRecetaSabadoDomingo(dieta, copiaRecetasDisponibles, recetaServicio, recetaComidaLibre);
+    		
+    	} else {
+    		
+            copiaRecetasDisponibles.remove(recetaComidaLibre); // La eliminamos de las recetas disponibles
+
+            // Cogemos una receta aleatoria
+            dieta.setReceta(DietaServicio.recetaAleatoria(copiaRecetasDisponibles));
+    	}
     }
     
     /**
@@ -259,35 +271,19 @@ public class DietaServicio {
     }
     
     /**
-     * Selecciona la receta para la dieta especificada entre las recetas disponibles.
-     * 
-     * @param dieta La dieta para la que se va a seleccionar la receta.
-     * @param recetasDisponibles La lista que almacena las recetas disponibles.
-     * @throws SQLException
+     * Devuelve una lista con la receta del día anterior eliminada.
+     * @param dieta La dieta del día anterior.
+     * @param recetasDisponibles La lista de recetas disponibles de la cual eliminaremos la receta.
+     * @return Una lista con la receta del día anterior eliminada.
      */
-    private static void seleccionaReceta(Dieta dieta, List<Receta> recetasDisponibles)
-            throws SQLException {
+    private static List<Receta> eliminaRecetaDiaAnterior(Dieta dieta, List<Receta> recetasDisponibles) {
 
-    	// SERVICIOS
-    	RecetaServicio recetaServicio = new RecetaServicio();
-        
-    	// VARIABLES
-        Receta recetaComidaLibre = recetaServicio.buscaRecetaComidaLibre();
+        Receta receta = dieta.getReceta();
         List<Receta> copiaRecetasDisponibles = new ArrayList<Receta>(recetasDisponibles);
-    	
-        // Si es sábado o domingo podrá tocar comida libre y tendrá más posibilidades de aparecer
-        // en la comida y en la cena. Falta implementar que solo puede aparecer 3 máximo
-    	if (dieta.getDia().equals("Sábado") || dieta.getDia().equals("Domingo")) {
-    		
-    		DietaServicio.seleccionaRecetaSabadoDomingo(dieta, copiaRecetasDisponibles, recetaServicio, recetaComidaLibre);
-    		
-    	} else {
-    		
-            copiaRecetasDisponibles.remove(recetaComidaLibre); // La eliminamos de las recetas disponibles
-
-            // Cogemos una receta aleatoria
-            dieta.setReceta(DietaServicio.recetaAleatoria(copiaRecetasDisponibles));
-    	}
+        
+        copiaRecetasDisponibles.remove(receta);
+        
+        return copiaRecetasDisponibles;
     }
     
     /**

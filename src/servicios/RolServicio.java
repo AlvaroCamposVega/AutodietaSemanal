@@ -39,5 +39,19 @@ public class RolServicio implements RolDAO {
 
 		return rolDAO.buscaTodos();
 	}
-
+	
+	/**
+	 * Devuelve el Rol de un usuario dada la id de este.
+	 * 
+	 * @param id La {@link entidades.Usuario#id id} del {@link entidades.Usuario usuario}.
+	 * @return El {@link entidades.Rol Rol} del usuario.
+	 * @throws SQLException
+	 */
+	public Rol buscaPorIdUsuario(int id) throws SQLException {
+		
+		UsuarioServicio usuarioServicio = new UsuarioServicio();
+		
+		// Creamos el objeto del rol obteniendo el rol referenciado en el usuario
+		return usuarioServicio.buscaPorId(id).getRol();
+	}
 }
