@@ -1,23 +1,16 @@
-<%@page import="servicios.DietaServicio"%>
+<%@page import="entidades.Dieta"%>
 <%@page import="java.util.List"%>
-<%@page import="servicios.RecetaServicio"%>
-<%@page import="entidades.Receta"%>
+<%@page import="servicios.DietaServicio"%>
 <%@page import="entidades.Rol"%>
 <%@page import="servicios.RolServicio"%>
 <%@page import="biblio.BiblioUtilidades"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="servicios.UsuarioServicio"%>
 <%@page import="org.apache.commons.codec.digest.DigestUtils"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Connection" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="dieta.Dieta" %>
-<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +31,6 @@
 			response.sendRedirect("../"); // Lo mandamos a la pantalla de inicio
 		    	
 	    } else { // Si el acceso es legítimo
-	        
-	        Class.forName("com.mysql.jdbc.Driver");
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta","admin", "nimda12_34$");
-			Statement s = conexion.createStatement();
 			
 			UsuarioServicio usuarioServicio = new UsuarioServicio();
 			
@@ -89,7 +78,7 @@
 				
 				DietaServicio dietaServicio = new DietaServicio();
 				
-				dietaServicio.generaDieta(idUsuario);
+				dietaServicio.salva(dietaServicio.generaDieta(idUsuario));
 				
 				response.sendRedirect("../");
 	        }
