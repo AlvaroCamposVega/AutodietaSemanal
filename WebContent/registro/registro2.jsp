@@ -1,5 +1,3 @@
-<%@page import="entidades.Dieta"%>
-<%@page import="java.util.List"%>
 <%@page import="servicios.DietaServicio"%>
 <%@page import="entidades.Rol"%>
 <%@page import="servicios.RolServicio"%>

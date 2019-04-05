@@ -2,15 +2,9 @@
 <%@page import="servicios.RolServicio"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="servicios.UsuarioServicio"%>
+<%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
-<%@ page import="biblio.BiblioUtilidades"%>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="org.apache.commons.codec.digest.DigestUtils" %>
-<%@ page import="dieta.Dieta" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
