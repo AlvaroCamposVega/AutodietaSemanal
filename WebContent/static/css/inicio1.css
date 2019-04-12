@@ -58,6 +58,25 @@ body nav ul li a#activo:hover {
     text-decoration: none;
     color: #fdfdfd; /* #f4f4f4 */
 }
+body nav div {
+	position: absolute;
+	width: 40%;
+	height: 8vh;
+	margin-left: 60%;
+	text-align: right;
+}
+body nav div span {
+	display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 2%;
+}
+body nav div span img#imgFresa2 {
+	vertical-align: middle;
+    width: 2.6vw;
+    padding-left: 0.2vw;
+}
 /* SECCION 1 */
 body section {
     height: 100vh;
