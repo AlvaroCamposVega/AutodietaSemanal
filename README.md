@@ -6,6 +6,7 @@
 * Modularizar todo lo posible el código con el uso de funciones y clases para que este sea mucho más fácil de mantener. ***(Current)***
 * Crear los CRUDs para las recetas, los roles y dar de alta a nuevos usuarios administradores.
 * El usuario podrá obtener su dieta en formato Excel, PDF o CSV.
+* Los enlaces de la dieta están en el texto, no en los td.
 
 # Enlaces
 * [Entorno de desarrollo](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo)
