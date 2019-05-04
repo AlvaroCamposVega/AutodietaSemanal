@@ -16,8 +16,7 @@
 	<title>Autodieta</title>
 </head>
 <body>
-	<a href="../">Atrás</a>
-	<div id="wrapper">
+	<header></header>
 	<%
 		session.removeAttribute("adLog");
 	
@@ -26,6 +25,14 @@
 		    response.sendRedirect("../"); // Lo mandamos a su dieta
 		
 		} else { // Si el acceso es legítimo
+		    
+		    String usuario = session.getAttribute("usuario").toString();
+		    
+		 	// Pintamos la barra de navegación
+	    	out.print("<nav><ul><li><a href=\"../\">Dieta</a></li>");
+	    	out.print("<li><a id=\"activo\" href=\"#\">Receta</a></li>");
+	    	out.print("<li><a href=\"../../logout/\">Cerrar Sesión</a></li></ul>");
+	    	out.print("<div><span>" + usuario + "<img id=\"imgFresa2\" src=\"../../static/img/fresa.png\"></span></div></nav>");
 		        
 		    Class.forName("com.mysql.jdbc.Driver");
 			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta","admin", "nimda12_34$");
@@ -35,7 +42,8 @@
 			ResultSet listadoReceta = s.executeQuery("SELECT Nombre, Ingredientes, Descripcion FROM receta WHERE Id = " + idReceta);
 				
 			while(listadoReceta.next()) {
-				    
+				
+			    out.print("<div id=\"wrapper\">");
 				out.print("<h1>" + listadoReceta.getString("Nombre").toUpperCase() + "</h1>");
 				out.print("<div id=\"cajaIngredientes\">");
 				out.print("<h2 class=\"ingredientes\">Ingredientes - " + listadoReceta.getString("Ingredientes") + "</h2>");
