@@ -19,6 +19,7 @@
 	<title>Autodieta</title>
 </head>
 <body>
+	<header></header>
 	<%
 		session.removeAttribute("adLog");
 	
@@ -26,7 +27,6 @@
 		Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta","admin", "nimda12_34$");
 		Statement s = conexion.createStatement();
 		String usuario = "";
-		String usuarioHash = "";
 		String contrasena = "";
 		boolean accesoLegal = true;
 	
@@ -40,7 +40,6 @@
 	    	} else { // Si el acceso es legítimo
 
 	    	    usuario = request.getParameter("usuario"); // Obtenemos datos del formulario
-	    	    usuarioHash = DigestUtils.sha256Hex(usuario);
 	    	    contrasena = DigestUtils.sha256Hex(request.getParameter("contrasena"));
 	    	}
 			
@@ -49,7 +48,6 @@
 			if (request.getParameter("usuario") != null) { // Si se inicia una nueva sesión
 		    	
 			    usuario = request.getParameter("usuario"); // Obtenemos datos del formulario
-			    usuarioHash = DigestUtils.sha256Hex(usuario);
 			    contrasena = DigestUtils.sha256Hex(request.getParameter("contrasena"));
 		    	
 	    	} else { // Si no se está iniciando una nueva sesión
@@ -67,13 +65,16 @@
 		}
 		
 		if (accesoLegal) {
-		    
-		    out.print("<h2>" + usuario + " <a href=\"../logout/\">Cerrar sesión</a></h2>");
+	    
+		    // Pintamos la barra de navegación
+	    	out.print("<nav><ul><li><a id=\"activo\" href=\"#\">Dieta</a></li>");
+	    	out.print("<li><a href=\"../logout/\">Cerrar Sesión</a></li></ul>");
+	    	out.print("<div><span>" + usuario + "<img id=\"imgFresa2\" src=\"../static/img/fresa.png\"></span></div></nav>");
 		    
 		    String usuarioId = "";
 			String usuarioPrivilegio = "";
-			ResultSet listado = s.executeQuery("SELECT * FROM usuario WHERE (nombre = '" + usuario +
-				"' OR nombre = '" + usuarioHash + "') AND contrasena = '" + contrasena + "'");
+			ResultSet listado = s.executeQuery("SELECT * FROM usuario WHERE nombre = '" + usuario +
+				"' AND contrasena = '" + contrasena + "'");
 
 			while (listado.next()) { // Obtenemos el Id e IdPrivilegio del usuario (y la fecha de expiración de la dieta)
 			    
@@ -83,7 +84,7 @@
 			
 			if (usuarioId.equals("")) { // Si el Id del usuario no existe
 			    
-			    response.sendRedirect("../?error=true");
+			    response.sendRedirect("../login/?error=true");
 			    
 			} else { // Si el Id del usuario existe
 				
@@ -97,7 +98,7 @@
 				
 				if (privilegio.equals("admin")) { // Si tiene privilegio de administrador le mandamos a su página
 				    
-				    session.setAttribute("adLog", "true");
+				    session.setAttribute("adLog", usuario);
 				    response.sendRedirect("../admin/");
 				    
 				} else if (privilegio.equals("usuario")) { // Si tiene privilegio de usuario recogemos su dieta y la pintamos
@@ -122,7 +123,7 @@
 						}
 				    }
 				    
-				    out.print("<h1 id=\"expiraDieta\">La dieta expira el: " + expiraDieta + "</h1>");
+				    out.print("<h1 id=\"expiraDieta\">Su dieta expira el: " + expiraDieta + "</h1>");
 					
 				    session.setAttribute("usuario", usuario); // Guardamos los datos de la sesión
 				
