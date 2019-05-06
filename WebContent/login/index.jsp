@@ -32,9 +32,9 @@
 	<header></header>
     <nav>
         <ul>
-            <li>
+            <!-- <li>
                 <a href="../">Inicio</a>
-            </li>
+            </li> -->
             <li>
                 <a id="activo" href="#">Iniciar Sesión</a>
             </li>
