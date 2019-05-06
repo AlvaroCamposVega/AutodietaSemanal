@@ -7,7 +7,78 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: Poppins;
-	background-color: #79b156;
+	background-color: #fbfbfb;
+	color: #262626;
+}
+/* BARRA DE NAVEGACIÓN */
+body nav {
+    height: 8vh;
+    font-size: 1.4vw;
+    position: sticky;
+    top: 0;
+    background-color: #4dbd33; /* #15c1f5 */
+    border-bottom: 0.15vw solid #297900; /* #1082a5 */
+}
+  /* Enlaces */
+body nav ul {
+    margin-left: 2.4vw;
+    list-style: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+body nav ul li {
+    display: inline;
+    margin-right: 1.4vw;
+}
+    /* Enlace Normal */
+body nav ul li a {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:link {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:visited {
+    text-decoration: none;
+    color: #262626;
+}
+body nav ul li a:hover {
+    text-decoration: underline;
+}
+    /* Enlace Activo */
+body nav ul li a#activo {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:link {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:visited {
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav ul li a#activo:hover {
+    text-decoration: none;
+    color: #fdfdfd; /* #f4f4f4 */
+}
+body nav div {
+	position: absolute;
+	width: 40%;
+	height: 8vh;
+	margin-left: 60%;
+	text-align: right;
+}
+body nav div span {
+	display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 2%;
+}
+body nav div span img#imgFresa2 {
+	vertical-align: middle;
+    width: 2.6vw;
+    padding-left: 0.2vw;
 }
 #wrapper h2 {
 	text-align: right;
@@ -33,7 +104,7 @@ table {
     padding: 0.4vw 0 0.4vw 1vw;
     margin: 1vw 0 1vw 0.6vw;
     border-radius: 0.3vw;
-    border: none;
+    border: 1px solid #7d7d7d;
     background-color: #f5f5f5;
 }
 #wrapper #formAnyadir form #privilegio {
@@ -111,7 +182,7 @@ button:hover {
 	background-color: #1f1f1f;
 }
 #oscurecer {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.3);
 	z-index: 1;
 	width: 100vw;
 	height: 100vh;
@@ -126,9 +197,9 @@ button:hover {
     top: 8vw;
     position: absolute;
     text-align: center;
-    background-color: #79b156;
+    background-color: #fbfbfb;
     z-index: 10;
-    border-radius: 1vw;
+    border: 1px solid #7d7d7d;
     display: none;
 }
 #formulario form {
@@ -145,17 +216,18 @@ button:hover {
 #formulario h2 {
 	font-size: 2.4vw;
 	margin-top: 1.4vw;
-	color: #007eff;
+	padding-right: 0;
+	color: #f00000;
 }
 #capaError {
 	position: absolute;
     top: 12%;
     height: 45%;
     width: 60%;
-    background-color: #79b156;
+    background-color: #fbfbfb;
     margin-left: 20%;
     z-index: 10;
-    border-radius: 1vw;
+    border: 1px solid #7d7d7d;
     text-align: center;
 }
 #capaError #textoError {

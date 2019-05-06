@@ -42,8 +42,6 @@
     <title>Autodieta</title>
 </head>
 <body>
-	<div id="wrapper">
-		<h2><a href="../">Inicio</a></h2>
 	<%
 		if (session.getAttribute("adLog") == null) { // Si se intenta acceder por URL (comprobando la sesión)
 		    	
@@ -58,7 +56,15 @@
 			Statement s = conexion.createStatement();
 			ResultSet listadoPrivilegios = s.executeQuery("SELECT * FROM Privilegio");
 			
+			String usuario = session.getAttribute("adLog").toString();
+			
+			// Pintamos la barra de navegación
+	    	out.print("<nav><ul><li><a id=\"activo\" href=\"#\">Inicio</a></li>");
+	    	out.print("<li><a href=\"../logout/\">Cerrar Sesión</a></li></ul>");
+	    	out.print("<div><span>" + usuario + "<img id=\"imgFresa2\" src=\"../static/img/fresa.png\"></span></div></nav>");
+			
 			// FORMULARIO AÑADIR USUARIO ---------------------------
+			out.print("<div id=\"wrapper\">");
 	    	out.print("<div id=\"formAnyadir\">");
 	    	out.print("<form action=\"insertar/\" method=\"POST\">");
 	    	out.print("<input id=\"inputNombre\" name=\"nombre\" type=\"text\" placeholder=\"Nombre\" maxlength=\"20\" required>");
@@ -93,7 +99,7 @@
 	    	    String privilegio = listadoPrivilegios.getString("Privilegio").substring(0, 1).toUpperCase() +
 	    	            listadoPrivilegios.getString("Privilegio").substring(1);
 	    	    
-	    	    if (privilegio.equals("usuario")) {
+	    	    if (privilegio.equals("Usuario")) {
 	    	        
 	    	        out.print("<option value=\"" + idPrivilegio + "\" selected>" + privilegio + "</option>");
 	    	        

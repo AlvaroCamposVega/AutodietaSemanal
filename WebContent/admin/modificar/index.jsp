@@ -36,8 +36,6 @@
     <title>Autodieta</title>
 </head>
 <body>
-	<div id="wrapper">
-		<form action="modificar.jsp" method="POST">
 	<%
 		if (request.getParameter("id") == null || session.getAttribute("adLog") == null) { // Si se intenta acceder por URL
 		        
@@ -49,6 +47,16 @@
 			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/autodieta","admin", "nimda12_34$");
 			Statement s = conexion.createStatement();
 			Statement s1 = conexion.createStatement();
+			
+			String usuario = session.getAttribute("adLog").toString();
+			
+			// Pintamos la barra de navegación
+	    	out.print("<nav><ul><li><a href=\"../\">Inicio</a></li>");
+	    	out.print("<li><a href=\"../../logout/\">Cerrar Sesión</a></li></ul>");
+	    	out.print("<div><span>" + usuario + "<img id=\"imgFresa2\" src=\"../../static/img/fresa.png\"></span></div></nav>");
+	    	
+			out.print("<div id=\"wrapper\">");
+			out.print("<form action=\"modificar.jsp\" method=\"POST\">");
 				
 			String idUsuario = request.getParameter("id");
 				
