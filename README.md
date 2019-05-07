@@ -10,3 +10,4 @@
 
 # Enlaces
 * [Entorno de desarrollo](https://github.com/AlvaroCamposVega/autodieta-semanal/tree/desarrollo)
+* [Video explicativo](https://youtu.be/Gz-TzRqFhbY)
